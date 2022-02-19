@@ -6,11 +6,11 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:16:51 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/19 18:32:39 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:09:46 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "srcs/fdf.h"
 
 void	default_values(t_data *fdf)
 {

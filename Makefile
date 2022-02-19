@@ -6,15 +6,13 @@
 #    By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/27 11:18:16 by hcremers          #+#    #+#              #
-#    Updated: 2022/02/19 18:47:35 by hcremers         ###   ########.fr        #
+#    Updated: 2022/02/19 19:12:52 by hcremers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= fdf
 
 SRC		= main.c \
-		read_file.c \
-		draw_grid.c
 
 OBJ		= $(addprefix $(OBJDIR), $(SRC:.c=.o))
 OBJDIR	= objs/
@@ -25,7 +23,7 @@ MKDIR	= mkdir
 ZIP		= zip
 MV		= mv
 
-LIB		= utils/libutils.a
+LIB		= srcs/libutils.a
 
 CFLAGS	= -Wall -Wextra -Werror
 MLXFLGS	= -lmlx -framework OpenGL -framework AppKit
@@ -41,7 +39,7 @@ $(OBJDIR)%.o:	%.c
 all:			$(NAME)
 
 $(NAME):		$(OBJ)
-				make -C utils/
+				make -C srcs/
 				$(CC) $(CFLAGS) $(OBJ) $(LIB) $(MLXFLGS) -o $(NAME)
 
 $(OBJ):			| $(OBJDIR)
@@ -50,12 +48,12 @@ $(OBJDIR):
 				$(MKDIR) $(OBJDIR)
 
 clean:
-				make clean -C utils/
+				make clean -C srcs/
 				$(RM) $(wildcard *.o)
 				$(RM) -r $(OBJDIR)
 
 fclean:			clean
-				make fclean -C utils/
+				make fclean -C srcs/
 				$(RM) $(NAME)
 
 re:				fclean all

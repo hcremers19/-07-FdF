@@ -1,22 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 14:59:40 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/19 17:46:59 by hcremers         ###   ########.fr       */
+/*   Created: 2022/01/29 15:58:00 by hcremers          #+#    #+#             */
+/*   Updated: 2022/02/19 19:23:22 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef FDF_H
+# define FDF_H
 
-# include <stdlib.h>
+# include <fcntl.h>
+# include <limits.h>
+# include <math.h>
+# include <mlx.h>
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
-// # include "../wraloc/wraloc.h"
+// # include "wraloc/wraloc.h"
+
+/*				***					Fdf					***					*/
+
+typedef struct s_data {
+	int		**z;
+	void	*mlx;
+	void	*win;
+	void	*img_img;
+	char	*img_addr;
+	int		img_height;
+	int		img_length;
+	int		img_endian;
+	int		size;
+	int		width;
+	int		height;
+	float	x1;
+	float	x0;
+	float	y1;
+	float	y0;
+	int		z1;
+	int		z0;
+	int		x_shifter;
+	int		y_shifter;
+}	t_data;
+
+void	drawgrid(t_data *fdf);
+int		linkmap(char *file, t_data *fdf);
+
+/*				***					libft				***					*/
 
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
@@ -68,5 +101,20 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/*					***			get_next_line			***					*/
+
+char	*ft_calloc(size_t count, size_t size);
+void	ft_free(char **ptr);
+char	*ft_keepend(char *ptr);
+char	*ft_keepstart(char *ptr);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char *s1, char *s2);
+int		ft_srch_nl(const char *str);
+char	*get_next_line(int fd);
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
 #endif
