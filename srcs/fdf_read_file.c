@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file_copy.c                                   :+:      :+:    :+:   */
+/*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 12:13:19 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/19 17:42:39 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:08:40 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,15 +51,11 @@ int	count_words(char *s, int c)
 	return (count);
 }
 
-int	linkmap(char *file, t_data *fdf)
+int	get_dimensions(char *file, t_data *fdf)
 {
-	int		i;
 	int		fd;
 	char	*line;
-	int		j;
-	char	**nums;
 
-	/*Get dimensions*/
 	fd = open(file, O_RDONLY);
 	if (fd < 1 || read(fd, NULL, 0) < 0)
 	{
@@ -77,7 +73,43 @@ int	linkmap(char *file, t_data *fdf)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	/*malloc z and protect it*/
+	return (0);
+}
+
+int	fill_tab(char *file, t_data *fdf)
+{
+	int		fd;
+	int		i;
+	int		j;
+	char	*line;
+	char	**nums;
+
+	fd = open(file, O_RDONLY);
+	i = 0;
+	while (i < fdf->height)
+	{
+		j = 0;
+		line = get_next_line(fd);
+		nums = ft_split(line, ' ');
+		while (j < fdf->width)
+		{
+			fdf->z[i][j] = ft_atoi(nums[j]);
+			j++;
+		}	
+		free(line);
+		nums = ft_free_tab(nums);
+		i++;
+	}
+	close(fd);
+	return (0);
+}
+
+int	read_file(char *file, t_data *fdf)
+{
+	int		i;
+
+	if (get_dimensions(file, fdf))
+		return (1);
 	fdf->z = (int **)malloc(sizeof(int *) * (fdf->height + 2));
 	if (!fdf->z)
 		return (1);
@@ -95,24 +127,8 @@ int	linkmap(char *file, t_data *fdf)
 		}
 		i++;
 	}
-	/*Fill z with ints*/
 	fdf->z[i] = NULL;
-	fd = open(file, O_RDONLY);
-	i = 0;
-	while (i < fdf->height)
-	{
-		j = 0;
-		line = get_next_line(fd);	// À protéger ?
-		nums = ft_split(line, ' ');	// À protéger ?
-		while (j < fdf->width)
-		{
-			fdf->z[i][j] = ft_atoi(nums[j]);
-			j++;
-		}	
-		free(line);
-		nums = ft_free_tab(nums);
-		i++;
-	}
-	close(fd);
-	return(0);
+	if (fill_tab(file, fdf))
+		return (1);
+	return (0);
 }

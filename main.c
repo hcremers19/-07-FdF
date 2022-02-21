@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:16:51 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/19 19:09:46 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:05:04 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,18 @@ int	deal_key(int key, t_data *fdf)
 		free(fdf);
 		exit(EXIT_SUCCESS);
 	}
-	else if(key == 123)
+	else if (key == 123)
 		fdf->x_shifter -= 50;
-	else if(key == 124)
+	else if (key == 124)
 		fdf->x_shifter += 50;
-	else if(key == 125)
+	else if (key == 125)
 		fdf->y_shifter += 50;
-	else if(key == 126)
+	else if (key == 126)
 		fdf->y_shifter -= 50;
-	else if(key == 24)
+	else if (key == 24)
 		fdf->size *= 2;
-	else if(key == 27)
+	else if (key == 27)
 		fdf->size /= 2;
-	else
-		printf("Congrats! You pressed key nbr %d, this key is absolutely useless.\n", key);
-	// mlx_destroy_image(fdf->mlx, fdf->img_img);
 	if (fdf->size <= 0 || fdf->size > 1000)
 		fdf->size = 1;
 	mlx_clear_window(fdf->mlx, fdf->win);
@@ -81,7 +78,7 @@ int	main(int argc, char **argv)
 	fdf->win = mlx_new_window(fdf->mlx, 1920, 1080, "fdf");
 	if (argc == 2)
 	{
-		if (!linkmap(argv[1], fdf))
+		if (!read_file(argv[1], fdf))
 			default_values(fdf);
 		else
 			return (1);
@@ -92,8 +89,6 @@ int	main(int argc, char **argv)
 		free(fdf);
 		return (1);
 	}
-	ft_putstr_fd("height = ", 1); ft_putnbr_fd(fdf->height, 1); ft_putchar_fd(10, 1);
-	ft_putstr_fd("width = ", 1); ft_putnbr_fd(fdf->width, 1); ft_putchar_fd(10, 1);
 	drawgrid(fdf);
 	if (!mlx_key_hook(fdf->win, deal_key, fdf))
 		return (0);

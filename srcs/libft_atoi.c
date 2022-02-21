@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcremers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 19:10:45 by hcremers          #+#    #+#             */
-/*   Updated: 2021/10/06 19:10:50 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/21 19:08:49 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
+
+int	ft_isdigit(int c)
+{
+	if (48 <= c && c <= 57)
+		return (1);
+	else
+		return (0);
+}
 
 static int	ft_limits(long long n, const char *str, int s)
 {

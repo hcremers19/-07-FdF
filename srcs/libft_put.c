@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_put_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hcremers <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:45:21 by hcremers          #+#    #+#             */
-/*   Updated: 2021/10/13 16:45:31 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/21 19:10:25 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
-static void	ft_putintmin(int fd)
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putstr_fd(char *str, int fd)
+{
+	if (str)
+		write(fd, str, ft_strlen(str));
+}
+
+void	ft_putintmin(int fd)
 {
 	write(fd, "-2147483648", 11);
 }

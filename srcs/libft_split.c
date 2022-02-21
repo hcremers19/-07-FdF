@@ -6,20 +6,20 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 17:03:50 by hcremers          #+#    #+#             */
-/*   Updated: 2022/01/27 12:37:23 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/21 19:10:18 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fdf.h"
 
-static char	**ft_clean(char **s, int i)
+char	**ft_clean(char **s, int i)
 {
 	while (i--)
 		free(s[i]);
 	return (0);
 }
 
-static int	wrdnbr(char const *s, char c)
+int	wrdnbr(char const *s, char c)
 {
 	int	i;
 	int	j;
@@ -41,7 +41,7 @@ static int	wrdnbr(char const *s, char c)
 	return (count);
 }
 
-static char	**ft_split2(char const *s, char c, char **tab, unsigned int w)
+char	**ft_split2(char const *s, char c, char **tab, unsigned int w)
 {
 	unsigned int	i;
 	unsigned int	j;
