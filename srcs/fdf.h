@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 15:58:00 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/21 19:23:11 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:27:51 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-// # include "wraloc/wraloc.h"
+# include "../wraloc/wraloc.h"
 
 /**** Fdf ****/
 
@@ -49,7 +49,10 @@ typedef struct s_data {
 	int		y_shifter;
 }	t_data;
 
-void	drawgrid(t_data *fdf);
+void	draw_grid(t_data *fdf);
+int		errors(char *error, t_data *fdf);
+void	*free_tab(char **tab);
+void	*free_z(int **z);
 int		read_file(char *file, t_data *fdf);
 
 /**** libft ****/

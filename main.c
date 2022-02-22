@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:16:51 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/21 17:05:04 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:27:59 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,29 +24,12 @@ void	default_values(t_data *fdf)
 		fdf->size = 1;
 }
 
-void	*ft_free_itab(int **tab)
-{
-	int	i;
-
-	if (!tab)
-		return (NULL);
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-	return (NULL);
-}
-
 int	deal_key(int key, t_data *fdf)
 {
 	if (key == 53)
 	{
 		mlx_destroy_window(fdf->mlx, fdf->win);
-		ft_free_itab(fdf->z);
+		free_z(fdf->z);
 		free(fdf);
 		exit(EXIT_SUCCESS);
 	}
@@ -65,7 +48,7 @@ int	deal_key(int key, t_data *fdf)
 	if (fdf->size <= 0 || fdf->size > 1000)
 		fdf->size = 1;
 	mlx_clear_window(fdf->mlx, fdf->win);
-	drawgrid(fdf);
+	draw_grid(fdf);
 	return (0);
 }
 
@@ -84,14 +67,9 @@ int	main(int argc, char **argv)
 			return (1);
 	}	
 	else
-	{
-		ft_putstr_fd("Error: wrong number of arguments\n", 1);
-		free(fdf);
-		return (1);
-	}
-	drawgrid(fdf);
-	if (!mlx_key_hook(fdf->win, deal_key, fdf))
-		return (0);
+		return (errors("Error: wrong number of arguments.\n", fdf));
+	draw_grid(fdf);
+	mlx_key_hook(fdf->win, deal_key, fdf);
 	mlx_loop(fdf->mlx);
 	return (0);
 }

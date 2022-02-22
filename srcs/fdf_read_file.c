@@ -1,32 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_file.c                                        :+:      :+:    :+:   */
+/*   fdf_read_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 12:13:19 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/21 17:08:40 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:09:48 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	*ft_free_tab(char **tab)
-{
-	int	i;
-
-	if (!tab)
-		return (NULL);
-	i = -1;
-	while (tab[++i])
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-	}
-	free(tab);
-	return (NULL);
-}
 
 int	count_words(char *s, int c)
 {
@@ -58,13 +42,16 @@ int	get_dimensions(char *file, t_data *fdf)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 1 || read(fd, NULL, 0) < 0)
-	{
-		ft_putstr_fd("Error: invalid path\n", 1);
-		free(fdf);
-		return (1);
-	}	
+		return (errors("Error: invalid path.\n", fdf));
 	fdf->height = 0;
 	line = get_next_line(fd);
+	if (!line)
+	{
+		free(line);
+		fdf->width = 0;
+		close(fd);
+		return (errors("Error: empty map.\n", fdf));
+	}
 	fdf->width = count_words(line, ' ');
 	while (line)
 	{
@@ -82,7 +69,7 @@ int	fill_tab(char *file, t_data *fdf)
 	int		i;
 	int		j;
 	char	*line;
-	char	**nums;
+	char	**tab;
 
 	fd = open(file, O_RDONLY);
 	i = 0;
@@ -90,14 +77,14 @@ int	fill_tab(char *file, t_data *fdf)
 	{
 		j = 0;
 		line = get_next_line(fd);
-		nums = ft_split(line, ' ');
+		tab = ft_split(line, ' ');
 		while (j < fdf->width)
 		{
-			fdf->z[i][j] = ft_atoi(nums[j]);
+			fdf->z[i][j] = ft_atoi(tab[j]);
 			j++;
 		}	
 		free(line);
-		nums = ft_free_tab(nums);
+		tab = free_tab(tab);
 		i++;
 	}
 	close(fd);

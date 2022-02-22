@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 13:17:49 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/21 19:29:13 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:27:45 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	perspect(float *x, float *y, int z)
 	*y = (*x + *y) * sin(0.6) - z;
 }
 
-void	drawline(t_data *fdf)
+void	draw_line(t_data *fdf)
 {
 	float	tempx0;
 	float	tempy0;
@@ -59,7 +59,7 @@ void	draw_x(t_data *fdf)
 		while (w < fdf->width - 1)
 		{
 			fdf->x1 += fdf->size;
-			drawline(fdf);
+			draw_line(fdf);
 			fdf->x0 += fdf->size;
 			w++;
 		}
@@ -85,7 +85,7 @@ void	draw_y(t_data *fdf)
 		while (h < fdf->height - 1)
 		{
 			fdf->y1 += fdf->size;
-			drawline(fdf);
+			draw_line(fdf);
 			fdf->y0 += fdf->size;
 			h++;
 		}
@@ -99,7 +99,7 @@ void	draw_y(t_data *fdf)
 	fdf->x1 = 0;
 }
 
-void	drawgrid(t_data *fdf)
+void	draw_grid(t_data *fdf)
 {
 	fdf->x0 = 0;
 	fdf->y0 = 0;
