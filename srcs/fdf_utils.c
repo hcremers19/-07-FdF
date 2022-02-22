@@ -6,7 +6,7 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/22 11:47:10 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/22 12:14:08 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:14:24 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,28 @@ void	*free_z(int **z)
 	}
 	free(z);
 	return (NULL);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	if (s)
+		write(fd, s, ft_strlen(s));
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	s;
+
+	i = 0;
+	s = ft_strlen(src);
+	if (!dstsize)
+		return (s);
+	while (src[i] && i < (dstsize - 1))
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (s);
 }

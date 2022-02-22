@@ -6,34 +6,11 @@
 /*   By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/08 12:13:19 by hcremers          #+#    #+#             */
-/*   Updated: 2022/02/22 12:09:48 by hcremers         ###   ########.fr       */
+/*   Updated: 2022/02/22 15:14:26 by hcremers         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int	count_words(char *s, int c)
-{
-	int	i;
-	int	flag;
-	int	count;
-
-	i = 0;
-	count = 0;
-	flag = 0;
-	while (s[i])
-	{
-		if (s[i] == c && flag == 1)
-			flag = 0;
-		if (s[i] != c && flag == 0)
-		{
-			count++;
-			flag = 1;
-		}
-		i++;
-	}
-	return (count);
-}
 
 int	get_dimensions(char *file, t_data *fdf)
 {
@@ -52,7 +29,7 @@ int	get_dimensions(char *file, t_data *fdf)
 		close(fd);
 		return (errors("Error: empty map.\n", fdf));
 	}
-	fdf->width = count_words(line, ' ');
+	fdf->width = wrdnbr(line, ' ');
 	while (line)
 	{
 		fdf->height++;
@@ -115,7 +92,5 @@ int	read_file(char *file, t_data *fdf)
 		i++;
 	}
 	fdf->z[i] = NULL;
-	if (fill_tab(file, fdf))
-		return (1);
-	return (0);
+	return (fill_tab(file, fdf));
 }
