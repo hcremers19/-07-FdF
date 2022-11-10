@@ -6,7 +6,7 @@
 #    By: hcremers <hcremers@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/27 11:18:16 by hcremers          #+#    #+#              #
-#    Updated: 2022/02/19 19:12:52 by hcremers         ###   ########.fr        #
+#    Updated: 2022/11/10 11:51:16 by hcremers         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,16 +20,12 @@ OBJDIR	= objs/
 CC		= gcc
 RM		= rm -f
 MKDIR	= mkdir
-ZIP		= zip
-MV		= mv
 
 LIB		= srcs/libutils.a
 
 CFLAGS	= -Wall -Wextra -Werror
-MLXFLGS	= -lmlx -framework OpenGL -framework AppKit
-
-ZIPNAME	= \[07\]FdF.zip
-DISTANT	= /Volumes/Clémentine/19/
+MLXFLGS	= -lmlx -framework OpenGL -framework AppKit 									# MacOS
+# MLXFLGS		= 	-Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz	# Linux
 
 ###############################################################################
 
@@ -58,10 +54,4 @@ fclean:			clean
 
 re:				fclean all
 
-zip:			fclean
-				$(ZIP) $(ZIPNAME) $(wildcard ./*)
-
-xport:			zip
-				$(MV) $(ZIPNAME) $(DISTANT)
-
-.PHONY:			all clean fclean re zip
+.PHONY:			all clean fclean re
